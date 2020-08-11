@@ -27,9 +27,8 @@ export class ProductComponent implements OnInit {
     this.activatedRoute.params.subscribe(param=>{
       this.productService.getProducts(param['categoryID']).subscribe(data=>this.products=data)
     })
-  
   }
   AddToCart(product) {
-    this.alertifyService.warning(product.name + " eklendi")
+    this.alertifyService.success(product.productName + " eklendi")
   }
 }

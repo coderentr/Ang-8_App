@@ -10,12 +10,16 @@ import { tap, catchError } from 'rxjs/operators';
 })
 export class ProductService {
 
-  path="https://localhost:44305/api/products/getall";
+  path="";
 
   constructor(private http: HttpClient) { }
   getProducts(categoryID):Observable<Product[]> {
+    this.path="https://localhost:44305/api/products/getall"
+    if(categoryID && categoryID>0){[
+      this.path="https://localhost:44305/api/products/getlistbycategory?categoryId="+categoryID
+    ]}
     //bırada benim servisimdeki methot ?categoryID yi desteklemiyor. Bu yüzden farklı bir yöntem denemem gerek. Get by category metodu denenebilir.
-   return this.http.get<Product[]>(this.path+'?categoryID='+categoryID).pipe(
+   return this.http.get<Product[]>(this.path).pipe(
      tap(data=>console.log(JSON.stringify(data))),
      catchError(this.handleError)
    )
